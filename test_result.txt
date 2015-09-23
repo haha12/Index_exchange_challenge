@@ -1,0 +1,155 @@
+Test if database has no table in it
+#######################################################
+C:\Python27>python test.py
+Today is: 2015-05-24
+maildomain table created.
+Did not find any previous record yet
+total domain up to yesterday: 0
+Error: unable to fetch data
+
+Test if no mailing list and previous record
+#######################################################
+mysql> select * from mailing;
+Empty set (0.00 sec)
+
+mysql> select * from maildomain;
+Empty set (0.00 sec)
+
+C:\Python27>python test.py
+Today is: 2015-05-24
+maildomain table exits.
+Did not find any previous record yet
+total domain up to yesterday: 0
+There is no record within 30 days.
+total domains up to today within 30 days: 0
+Cannot find TOP 50 Growing Domain in last 30 days!
+
+Test if there is no previous record
+#######################################################
+mysql> select * from mailing;
++--------------------+
+| addr               |
++--------------------+
+| 1234@gmail.com     |
+| 1234@gmail.com     |
+| 7899@gmail.com     |
+| abc@apple.com      |
+| abc@apple.com      |
+| mnl@apple.com      |
+| opq@apple.com      |
+| 123abc@hotmail.com |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from maildomain;
++-------------+-------+------------+
+| domain      | count | time       |
++-------------+-------+------------+
+| apple.com   |     4 | 2015-05-24 |
+| gmail.com   |     3 | 2015-05-24 |
+| hotmail.com |     1 | 2015-05-24 |
++-------------+-------+------------+
+5 rows in set (0.00 sec)
+
+C:\Python27>python test.py
+Today is: 2015-05-24
+Did not find any previous record yet
+total domain up to yesterday: 0
+total domains up to today within 30 days: 8
+TOP 50 Growing Domain in last 30 days:
+apple.com ---- 50.00%
+gmail.com ---- 37.50%
+hotmail.com ---- 12.50%
+
+Test if mailing list is empty and has previous record
+#######################################################
+mysql> select * from maildomain;
++-------------+-------+------------+
+| domain      | count | time       |
++-------------+-------+------------+
+| apple.com   |     2 | 2015-04-20 |
+| apple.com   |     2 | 2015-05-02 |
+| apple.com   |     5 | 2015-05-23 |
+| gmail.com   |     1 | 2015-05-03 |
+| gmail.com   |     3 | 2015-05-22 |
+| hotmail.com |     3 | 2015-05-09 |
+| yahoo.com   |     2 | 2015-04-20 |
+| yahoo.com   |     2 | 2015-05-12 |
+| yahoo.com   |     2 | 2015-05-23 |
++-------------+-------+------------+
+9 rows in set (0.00 sec)
+
+C:\Python27>python test.py
+Today is: 2015-05-24
+maildomain table exits.
+total domain up to yesterday: 22
+total domains up to today within 30 days: 18
+TOP 50 Growing Domain in last 30 days:
+apple.com ---- 38.89%
+yahoo.com ---- 22.22%
+gmail.com ---- 22.22%
+hotmail.com ---- 16.67%
+
+Test if previous record exits, no record outside 30 days range
+#######################################################
+mysql> select * from maildomain;
++-------------+-------+------------+
+| domain      | count | time       |
++-------------+-------+------------+
+| apple.com   |     2 | 2015-05-02 |
+| apple.com   |     5 | 2015-05-23 |
+| gmail.com   |     1 | 2015-05-03 |
+| gmail.com   |     3 | 2015-05-22 |
+| hotmail.com |     3 | 2015-05-09 |
+| hotmail.com |     6 | 2015-05-24 |
+| qq.com      |     2 | 2015-05-24 |
+| yahoo.com   |     2 | 2015-05-12 |
+| yahoo.com   |     2 | 2015-05-23 |
++-------------+-------+------------+
+9 rows in set (0.00 sec)
+
+C:\Python27>python test.py
+Today is: 2015-05-24
+maildomain table exits.
+total domain up to yesterday: 26
+total domains up to today within 30 days: 26
+TOP 50 Growing Domain in last 30 days:
+hotmail.com ---- 34.62%
+apple.com ---- 26.92%
+yahoo.com ---- 15.38%
+gmail.com ---- 15.38%
+qq.com ---- 7.69%
+
+Test if there are records exceed 30 days range
+#######################################################
+mysql> select * from maildomain;
++-------------+-------+------------+
+| domain      | count | time       |
++-------------+-------+------------+
+| apple.com   |     2 | 2015-04-20 |
+| apple.com   |     2 | 2015-05-02 |
+| apple.com   |     5 | 2015-05-23 |
+| gmail.com   |     1 | 2015-05-03 |
+| gmail.com   |     3 | 2015-05-22 |
+| hotmail.com |     3 | 2015-05-09 |
+| hotmail.com |     6 | 2015-05-24 |
+| qq.com      |     2 | 2015-05-24 |
+| yahoo.com   |     2 | 2015-04-20 |
+| yahoo.com   |     2 | 2015-05-12 |
+| yahoo.com   |     2 | 2015-05-23 |
++-------------+-------+------------+
+11 rows in set (0.00 sec)
+
+C:\Python27>python test.py
+Today is: 2015-05-24
+maildomain table exits.
+total domain up to yesterday: 30
+total domains up to today within 30 days: 26
+TOP 50 Growing Domain in last 30 days:
+hotmail.com ---- 34.62%
+apple.com ---- 26.92%
+yahoo.com ---- 15.38%
+gmail.com ---- 15.38%
+qq.com ---- 7.69%
+
+
