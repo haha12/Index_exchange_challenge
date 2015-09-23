@@ -1,0 +1,19 @@
+1. The program import MySQLdb to connect the mySQL server.
+   In order to run it, please install MySQLdb module which is included in this package:
+   run python setup.py to install, it is under folder: /MySQL-python-1.2.4b4
+   
+2. Also need change mysql connection config in test.py according to the desire database:
+		db = MySQLdb.connect("127.0.0.1","root","root","test" )  
+							(url,user name, password,database name)
+3. Command to run the program: 
+	python test.py
+			
+4. In order to generate the expected results, this program shall be run once per day such that 
+   it can update the daily counter of domains into second table. 
+   
+5. This program will only find the top growth domain for the latest 30 days.
+    The growth percentage = each domain's total count within last 30 days
+    						/ total domains' count within 30 days
+
+6. If the data in the table is exceed 30 days range, this program will not deal with them     		 
+   
